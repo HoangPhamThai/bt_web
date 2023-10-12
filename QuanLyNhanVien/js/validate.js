@@ -4,7 +4,7 @@ function Validate() {
     return false;
   };
   this.isNumberInRange = (value, min, max) => {
-    if (value == null) return false
+    if (value == null) return false;
     if (
       parseFloat(value) >= parseFloat(min) &&
       parseFloat(value) <= parseFloat(max)
@@ -14,20 +14,24 @@ function Validate() {
     return false;
   };
   this.isEmailValid = (value) => {
-    return regexFormatEmail.test(value)
-  }
+    return regexFormatEmail.test(value);
+  };
   this.isPasswordValid = (value) => {
-    return regexFormatPassword.test(value)
-  }
+    return regexFormatPassword.test(value);
+  };
   this.isDateFormatMMDDYYYY = (value) => {
-    return regexMMDDYYYY.test(value)
-  }
+    return regexMMDDYYYY.test(value);
+  };
   this.isItemInList = (item, list) => {
-    console.log("isItemInList", item)
-    return list.findIndex((value) => value == item) != 1
-  }
+    return (
+      list.findIndex((value) => {
+        console.log(`value = ${value} - item = ${item}`);
+        return value == item;
+      }) !== -1
+    );
+  };
   this.isOnlyLetters = (value) => {
-    if (value == null) return false
-    return regexOnlyLetter.test(value.replace(/\s/g, ""))
-  }
+    if (value == null) return false;
+    return regexOnlyLetter.test(value.replace(/\s/g, ""));
+  };
 }

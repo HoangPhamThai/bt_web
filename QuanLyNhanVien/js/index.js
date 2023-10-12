@@ -88,8 +88,6 @@ function updateEmployee() {
       saveObject(keyListEmployee, listEmployee);
       updateEmployeeTable(listEmployee);
       document.getElementById("btnDong").click()
-    }else{
-      console("Invalid form inputs")
     }
   }
 }
@@ -112,14 +110,8 @@ function getEmployeeRank(workingHour) {
 function searchEmployeeByRank() {
   let rank = getValueById("searchName");
   let filteredList = listEmployee.filter((item) => {
-    console.log(
-      `item rank = ${
-        item.rank
-      } - ${typeof item.rank} - rank = ${rank} - ${typeof item.rank}`
-    );
-    return item.rank == rank;
+    return item.rank() == rank;
   });
-  console.log("filteredList: ", filteredList);
 
   updateEmployeeTable(filteredList);
 }
