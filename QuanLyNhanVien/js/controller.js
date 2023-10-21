@@ -7,10 +7,14 @@ function setValueById(id, value) {
 }
 
 function isEmployeeExist({ employeeId, listEmployee }) {
-  let result = listEmployee.findIndex((value) => {
+  let id = listEmployee.findIndex((value) => {
     return value.account == employeeId;
   });
-  return result != -1;
+  let isExist = id !== -1;
+  if (isExist) {
+    return [listEmployee[id], isExist];
+  }
+  return [null, isExist];
 }
 
 function showErrorMessageByField({ idError, message = "" }) {
@@ -65,8 +69,8 @@ function updateEmployeeTable(listEmployee) {
   document.getElementById("tableDanhSach").innerHTML = contentHTML;
 }
 
-
 function isPassValidation(employee) {
+  console.log(`isPassValidation called employee = ${employee}`);
   let isPass = true;
   let isComponentPass = true;
   let validation = new Validate();
@@ -148,7 +152,6 @@ function isPassValidation(employee) {
 
   return isPass;
 }
-
 
 function getEmployeeByAccount(account) {
   let id = 0;

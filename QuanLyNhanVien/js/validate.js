@@ -25,7 +25,6 @@ function Validate() {
   this.isItemInList = (item, list) => {
     return (
       list.findIndex((value) => {
-        console.log(`value = ${value} - item = ${item}`);
         return value == item;
       }) !== -1
     );

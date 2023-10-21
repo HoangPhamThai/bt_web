@@ -22,10 +22,11 @@ function init(){
 
 function addEmployee() {
   let account = getValueById("tknv")
-  if (!isEmployeeExist({
+  let [existedEmployee, isExist] = isEmployeeExist({
     employeeId: account,
     listEmployee: listEmployee
-  })){
+  })
+  if (!isExist){
     let employee = new Employee({
       account: getValueById("tknv"),
       name: getValueById("name"),
@@ -42,6 +43,7 @@ function addEmployee() {
       updateEmployeeTable(listEmployee)
     }
   }else{
+    isPassValidation(existedEmployee)
     showErrorMessageByField({
       idError: "tbTKNV",
       message: messageDuplicatedEmployee
