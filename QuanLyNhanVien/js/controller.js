@@ -163,3 +163,17 @@ function getEmployeeByAccount(account) {
   });
   return [employee, id];
 }
+
+
+function getEmployeeInfo(){
+  return new Employee({
+    account: getValueById("tknv"),
+    name: getValueById("name"),
+    email: getValueById("email"),
+    password: getValueById("password"),
+    hiringDate: getValueById("datepicker"),
+    basicSalary: getValueById("luongCB"),
+    position: getValueById("chucvu"),
+    workingHour: getValueById("gioLam"),
+  })
+}

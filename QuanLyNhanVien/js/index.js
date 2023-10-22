@@ -20,6 +20,10 @@ function init(){
   updateEmployeeTable(listEmployee);
 }
 
+
+
+
+
 function addEmployee() {
   let account = getValueById("tknv")
   let [existedEmployee, isExist] = isEmployeeExist({
@@ -27,16 +31,8 @@ function addEmployee() {
     listEmployee: listEmployee
   })
   if (!isExist){
-    let employee = new Employee({
-      account: getValueById("tknv"),
-      name: getValueById("name"),
-      email: getValueById("email"),
-      password: getValueById("password"),
-      hiringDate: getValueById("datepicker"),
-      basicSalary: getValueById("luongCB"),
-      position: getValueById("chucvu"),
-      workingHour: getValueById("gioLam"),
-    })
+    let employee = getEmployeeInfo()
+
     if (isPassValidation(employee)){
       listEmployee.push(employee)
       saveObject(keyListEmployee, listEmployee)
@@ -73,17 +69,8 @@ function updateEmployee() {
   if (employee == null) {
     alert(`Không có nhân viên có tài khoản là ${account} để cập nhật!`)
   } else {
-    let employee = new Employee({
-      account: getValueById("tknv"),
-      name: getValueById("name"),
-      email: getValueById("email"),
-      password: getValueById("password"),
-      hiringDate: getValueById("datepicker"),
-      basicSalary: getValueById("luongCB"),
-      position: getValueById("chucvu"),
-      workingHour: getValueById("gioLam"),
-      rank: getEmployeeRank(getValueById("gioLam")),
-    })
+
+    let employee = getEmployeeInfo()
 
     if (isPassValidation(employee)){
       listEmployee[id] = employee
@@ -94,20 +81,6 @@ function updateEmployee() {
   }
 }
 
-function getEmployeeRank(workingHour) {
-  let workingHourNum = parseFloat(workingHour);
-  let rank = "";
-  if (workingHourNum >= 192) {
-    rank = "Xuất sắc";
-  } else if (workingHourNum >= 176) {
-    rank = "Giỏi";
-  } else if (workingHourNum >= 160) {
-    rank = "Khá";
-  } else {
-    rank = "Trung bình";
-  }
-  return rank;
-}
 
 function searchEmployeeByRank() {
   let rank = getValueById("searchName");
