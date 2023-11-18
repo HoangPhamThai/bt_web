@@ -8,7 +8,6 @@ var navPillsData = [];
 fetch("../data/Data.json")
   .then((response) => response.json())
   .then((json) => {
-    console.log(json);
     navPillsData = getNavPillMetadata(json);
     selectedTab = navPillsData[0].type;
 
