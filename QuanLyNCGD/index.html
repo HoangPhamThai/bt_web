@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Quản lý Nghiên cứu Giảng dạy</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.0/tailwind.min.css"
+      integrity="sha512-ksC7McuoU4VJ07WGtca5INyDRXzGsmhyEEJYzoWBkjC/KwuG+IK/pFnxJFNIGmOd8pmGexOxd3FziCPZXQJ4lA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    
+    <section class="actions container pt-24 flex justify-end">
+
+      <!-- Filter -->
+      <div class="sort-price flex ml-3 items-center border px-2 rounded-lg">
+        <span class="fa fa-filter mr-2"></span>
+        <span class="flex mr-2">Lọc theo đối tượng</span>
+        <select name="type" id="sort-price-type">
+          <option value=""></option>
+          <option value="student">Sinh viên</option>
+          <option value="employee">Nhân viên</option>
+          <option value="customer">Khách hàng</option>
+        </select>
+      </div>
+
+      <!-- Add a new person -->
+      <button
+        type="button"
+        class="ml-3 justify-center items-center bg-blue-600 text-white hover:bg-blue-900 px-3 py-1 rounded-lg"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        id="add-person-btn"
+      >
+        <i class="fa fa-plus mr-2"></i>
+        Thêm người dùng
+      </button>
+      <!-- Modal add new person-->
+      <div
+        class="modal fade"
+        id="personModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="personModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document" id="person-form">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-bold" id="personModalLabel">Người dùng</h5>
+              </button>
+            </div>
+            <div class="modal-body">
+             
+                <div class="mb-3">
+                  <label for="hoTen" class="form-label">Họ tên</label>
+                  <input type="text" class="form-control" id="hoTen" name="hoTen" />
+                  <span id="spanHoTen"></span>
+                </div>
+                <div class="mb-3">
+                  <label for="diaChi" class="form-label">Địa chỉ</label>
+                  <input type="text" class="form-control" id="diaChi" name="diaChi"/>
+                  <span id="spanDiaChi"></span>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email" name="email"/>
+                  <span id="spanEmail"></span>
+                </div>
+
+                <div class="mb-3">
+                  <label for="loai" class="form-label">Loại</label>
+                  <select class="form-select" onchange="changeType()" id="person-type" name="type">
+                    <option selected value="student">Sinh viên</option>
+                    <option value="employee">Nhân viên</option>
+                    <option value="customer">Khách hàng</option>
+                  </select>
+                </div>
+
+                <div id = "studentInfo">
+                  <div class="mb-3">
+                    <label for="toan" class="form-label">Điểm toán</label>
+                    <input type="number" class="form-control" id="toan" name="toan"/>
+                    <span id="spanToan"></span>
+                  </div>
+                  <div class="mb-3">
+                    <label for="ly" class="form-label">Điểm lý</label>
+                    <input type="number" class="form-control" id="ly" name="ly"/>
+                    <span id="spanLy"></span>
+                  </div>
+                  <div class="mb-3">
+                    <label for="toan" class="form-label">Điểm hoá</label>
+                    <input type="number" class="form-control" id="hoa" name="hoa"/>
+                    <span id="spanHoa"></span>
+                  </div>
+                </div>
+
+                <div class="hidden" id="employeeInfo">
+                  <div class="mb-3">
+                    <label for="soNgayLamViec" class="form-label">Số ngày làm việc</label>
+                    <input type="number" class="form-control" id="soNgayLamViec" name="soNgayLamViec"/>
+                    <span id="spanSoNgayLamViec"></span>
+                  </div>
+                  <div class="mb-3">
+                    <label for="luongTheoNgay" class="form-label">Lương theo ngày</label>
+                    <input type="number" class="form-control" id="luongTheoNgay" name="luongTheoNgay"/>
+                    <span id="spanLuongTheoNgay"></span>
+                  </div>
+                </div>
+
+                <div class=" hidden" id="customerInfo">
+                  <div class="mb-3">
+                    <label for="tenCty" class="form-label">Tên công ty</label>
+                    <input type="text" class="form-control" id="tenCty" name="tenCty"/>
+                    <span id="spanTenCty"></span>
+                  </div>
+                  <div class="mb-3">
+                    <label for="triGiaHoaDon" class="form-label">Trị giá hoá đơn</label>
+                    <input type="number" class="form-control" id="triGiaHoaDon" name="hoaDon"/>
+                    <span id="spanTriGiaHoaDon"></span>
+                  </div>
+                  <div class="mb-3">
+                    <label for="danhGia" class="form-label">Đánh giá</label>
+                    <input type="text" class="form-control" id="danhGia" name="danhGia"/>
+                    <span id="spanDanhGia"></span>
+                  </div>
+                </div>
+
+                <button id="addBtn" type="button" class="btn btn-primary" onclick="createNewPerson()">
+                  Thêm
+                </button>
+                <button id="updateBtn" type="button" class="btn btn-success hidden">
+                  Cập nhật
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container pt-5">
+      <table class="table table-bordered table-hover myTable">
+        <thead class="text-primary">
+          <tr>
+            <th>Mã</th>
+            <th class="nowrap">
+              <span class="mr-1">Họ và tên</span>
+              <i class="fa fa-arrow-up" id="name-dec-btn"></i>
+              <i class="fa fa-arrow-down" id="name-inc-btn"></i>
+            </th>
+            <th>Địa chỉ</th>
+            <th>Email</th>
+            <th>Loại</th>
+            <th><em class="fa fa-cog"></em></th>
+          </tr>
+        </thead>
+        <tbody id="table-person">
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Modal add new person-->
+    <div
+    class="modal fade"
+    id="personInfoModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="personInfoModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="personInfoModalLabel">Thông tin người dùng</h5>
+          </button>
+        </div>
+        <div class="modal-body" id="person-info-content">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- axios -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+      integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./controller/main.js"></script>
+  </body>
+</html>

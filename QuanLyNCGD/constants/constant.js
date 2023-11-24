@@ -1,0 +1,5 @@
+export const apiDomain = "https://6540d38445bedb25bfc2b316.mockapi.io/"
+export const personEndPoint = "api/v1/person"
+export const typeStudent = "student"
+export const typeEmployee = "employee"
+export const typeCustomer = "customer"
