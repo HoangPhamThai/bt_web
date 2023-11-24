@@ -29,6 +29,10 @@
   </head>
 
   <body>
+
+    <div class="container flex justify-center">
+      <h1 class="font-bold text-2xl mt-5">Quản lý học viện Nghiên cứu và Giảng dạy</h1>
+    </div>
     
     <section class="actions container pt-24 flex justify-end">
 
@@ -36,7 +40,7 @@
       <div class="sort-price flex ml-3 items-center border px-2 rounded-lg">
         <span class="fa fa-filter mr-2"></span>
         <span class="flex mr-2">Lọc theo đối tượng</span>
-        <select name="type" id="sort-price-type">
+        <select name="type" id="sort-person-type" onchange="filterPersonByType()">
           <option value=""></option>
           <option value="student">Sinh viên</option>
           <option value="employee">Nhân viên</option>
@@ -117,9 +121,9 @@
 
                 <div class="hidden" id="employeeInfo">
                   <div class="mb-3">
-                    <label for="soNgayLamViec" class="form-label">Số ngày làm việc</label>
-                    <input type="number" class="form-control" id="soNgayLamViec" name="soNgayLamViec"/>
-                    <span id="spanSoNgayLamViec"></span>
+                    <label for="soNgayLam" class="form-label">Số ngày làm việc</label>
+                    <input type="number" class="form-control" id="soNgayLam" name="soNgayLam"/>
+                    <span id="spanSoNgayLam"></span>
                   </div>
                   <div class="mb-3">
                     <label for="luongTheoNgay" class="form-label">Lương theo ngày</label>
@@ -149,7 +153,7 @@
                 <button id="addBtn" type="button" class="btn btn-primary" onclick="createNewPerson()">
                   Thêm
                 </button>
-                <button id="updateBtn" type="button" class="btn btn-success hidden">
+                <button id="updateBtn" type="button" class="btn btn-success hidden" onclick="updatePerson()">
                   Cập nhật
                 </button>
               </form>

@@ -1,14 +1,45 @@
 import * as constants from "../constants/constant.js";
+import * as dict from "../constants/dictionary.js";
 import StudentModel from "../models/student_model.js";
 import EmployeeModel from "../models/employee_model.js";
 import CustomerModel from "../models/customer_model.js";
 import PersonModel from "../models/person_model.js";
 
 import * as controller from "./controller.js";
+import * as utils from "../utils/utils.js";
 
 export default class ListPerson {
   constructor() {
     this.data = [];
+    this.unfilteredData = [];
+  }
+
+  setPersonIdToEdit = function(id){
+    this.editId = id
+  }
+
+  filterByType = function(type){
+    switch (type) {
+      case constants.typeStudent:
+        this.data = this.unfilteredData.filter((item) => {
+          return utils.getTypeOfPerson(item) === constants.typeStudent;
+        });
+        break;
+      case constants.typeEmployee:
+        this.data = this.unfilteredData.filter((item) => {
+          return utils.getTypeOfPerson(item) === constants.typeEmployee;
+        });
+        break;
+      case constants.typeCustomer:
+        this.data = this.unfilteredData.filter((item) => {
+          return utils.getTypeOfPerson(item) === constants.typeCustomer;
+        });
+        break;
+      default:
+        this.data = [...this.unfilteredData]
+        break;
+    }
+    
   }
 
   getAllPerson = function () {
@@ -59,6 +90,7 @@ export default class ListPerson {
                 });
             }
           });
+          this.unfilteredData = [...this.data]
           controller.renderListPerson(this);
         }
       })
@@ -74,12 +106,34 @@ export default class ListPerson {
       data: person,
     })
       .then((res) => {
+        $("#personModal").modal("hide");
         this.getAllPerson();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  updatePerson = function (person) {
+    if (this.editId != null){
+        axios({
+            url: constants.apiDomain.concat(constants.personEndPoint + "/" + this.editId),
+            method: "PUT",
+            data: person,
+          })
+           .then((res) => {
+            $("#personModal").modal("hide");
+              this.editId = undefined
+              this.getAllPerson();
+            })
+           .catch((err) => {
+              console.log(err);
+            });
+    }else{
+        alert(dict.selectPersonToUpdate)
+    }
+    
+  }
 
   sortByName = function (isInc) {
     this.data.sort((a, b) => {
